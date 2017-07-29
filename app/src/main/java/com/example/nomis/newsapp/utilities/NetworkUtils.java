@@ -24,25 +24,17 @@ import java.util.Scanner;
 public class NetworkUtils {
     //https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=
     //9afb25d9435f4779934d24d24cb2cc33
-    public static final String base_url =
-            "https://newsapi.org/v1/articles";
-    public static final String PARAM_SOURCE = "source";
-    public static final String source0 = "the-next-web";
-
+    public static final String BASE_URL = "https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest";
+    public static final String PARAM_QUERY = "source";
     public static final String PARAM_SORT = "sortBy";
     public static final String sortBy0 = "latest";
-
-    public static final String PARAM_KEY = "apiKey";
-    public static final String apiKey0 = "9afb25d9435f4779934d24d24cb2cc33";
-
+    public static final String PARAM_API_KEY ="apiKey";
     public static final String TAG = "NetworkUtils";
 
 
-    public static URL makeUrl(String testing){
-        Uri uri = Uri.parse(base_url).buildUpon()
-                .appendQueryParameter(PARAM_SOURCE, testing)
-                .appendQueryParameter(PARAM_SORT,sortBy0)
-                .appendQueryParameter(PARAM_KEY,apiKey0)
+    public static URL makeUrl(){
+        Uri uri = Uri.parse(BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY,"9afb25d9435f4779934d24d24cb2cc33")
                 .build();
 
 
@@ -76,7 +68,7 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
-
+//parse the data and put into a object
     public static ArrayList<NewsItem> parseJson(String json) throws JSONException{
         ArrayList<NewsItem> parsedData = new ArrayList<>();
         JSONObject main = new JSONObject(json);
@@ -88,9 +80,10 @@ public class NetworkUtils {
             String title = article.getString("title");
             String description = article.getString("description");
             String url = article.getString("url");
+            String image = article.getString("image");
             String publishedAt = article.getString("publishedAT");
-            NewsItem news = new NewsItem(author, title, description, url, publishedAt);
-            parsedData.add(news);
+            //NewsItem news = new NewsItem(author, title, description, url,image, publishedAt);
+            parsedData.add(new NewsItem(author, title, description, url,image, publishedAt));
         }
         return parsedData;
     }
