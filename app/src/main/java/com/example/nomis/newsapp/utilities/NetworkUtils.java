@@ -80,10 +80,10 @@ public class NetworkUtils {
             String title = article.getString("title");
             String description = article.getString("description");
             String url = article.getString("url");
-            String image = article.getString("image");
-            String publishedAt = article.getString("publishedAT");
-            //NewsItem news = new NewsItem(author, title, description, url,image, publishedAt);
-            parsedData.add(new NewsItem(author, title, description, url,image, publishedAt));
+            String urlToImage = article.getString("urlToImage");
+            String publishedAt = article.getString("publishedAt");
+            //NewsItem news = new NewsItem(author, title, description, url,urlToImage, publishedAt);
+            parsedData.add(new NewsItem(author, title, description, url,urlToImage, publishedAt));
         }
         return parsedData;
     }

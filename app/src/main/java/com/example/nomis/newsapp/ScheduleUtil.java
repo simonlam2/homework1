@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class ScheduleUtil {
-    private static final int SCHEDULE_INTERVAL_MINUTES = 360;
+    private static final int SCHEDULE_INTERVAL_MINUTES = 60;
     private static final int SYNC_FLEXTIME_SECONDS = 60;
     private static final String NEWS_JOB_TAG = "news_job_tag";
 
