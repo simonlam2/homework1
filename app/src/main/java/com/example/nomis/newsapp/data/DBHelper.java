@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
+    //creating the database to match api
     @Override
     public void onCreate(SQLiteDatabase db) {
         String queryString = "CREATE TABLE " + Contract.TABLE_ARTICLES.TABLE_NAME + " ("+
@@ -34,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "Create table SQL: " + queryString);
         db.execSQL(queryString);
     }
-
+    //drop old tables
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table " + Contract.TABLE_ARTICLES.TABLE_NAME + " if exists;");

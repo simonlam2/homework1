@@ -38,11 +38,12 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //stuff testing
+        //checks for first time setup
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isFirst = prefs.getBoolean("isFirst", true);
 
         progress = (ProgressBar) findViewById(R.id.progressBar);
+        //using layoutmanager for the recyclerview pieces
         rv = (RecyclerView) findViewById(R.id.recyclerView);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
@@ -53,15 +54,16 @@ public class MainActivity extends AppCompatActivity implements
             editor.putBoolean("isFirst", false);
             editor.commit();
         }
+        //update the app every minute
         ScheduleUtil.scheduleRefresh(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        db = new DBHelper(MainActivity.this).getReadableDatabase();
-        cursor = DBUtils.getAll(db);
-        adapter = new NewsAdapter(cursor, this);
+        db = new DBHelper(MainActivity.this).getReadableDatabase();//database is called
+        cursor = DBUtils.getAll(db); //cursor gets the data
+        adapter = new NewsAdapter(cursor, this);//adapter gets the data from the cursor
         rv.setAdapter(adapter);
     }
 
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<Void> loader) {
     }
-
+//when user clicks in an item they can open that item in a browser
     @Override
     public void onItemClick(Cursor cursor, int clickedItemIndex) {
         cursor.moveToPosition(clickedItemIndex);
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements
         intent.setData(Uri.parse(url));
         startActivity(intent);
     }
-
+//create a load manager
     public void load() {
         LoaderManager loaderManager = getSupportLoaderManager();
         loaderManager.restartLoader(NEWS_LOADER, null, this).forceLoad();

@@ -27,12 +27,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ArticleHolder>
         this.listener = listener;
     }
 
+    // allows user to click on articles
     public interface ItemClickListener {
         void onItemClick(Cursor cursor, int clickedItemIndex);
     }
 
 
-
+//creates viewsholders for the data
     @Override
     public ArticleHolder onCreateViewHolder(ViewGroup parent, int viewType){
         this.context = parent.getContext();
@@ -58,13 +59,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ArticleHolder>
         return cursor.getCount();
     }
 
-
+//get the data and set it to the viewholders
     class ArticleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView title;
         TextView description;
         TextView publishedAt;
         ImageView image;
-
+        //constructor for your your views
         ArticleHolder(View view){
             super(view);
             title = (TextView) view.findViewById(R.id.title_tview);
@@ -73,7 +74,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ArticleHolder>
             image =(ImageView) view.findViewById(R.id.image_tview);
             view.setOnClickListener(this);
         }
-
+        //set data into your views
         public void bind(int position){
             cursor.moveToPosition(position);
             title.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_ARTICLES.COLUMN_NAME_TITLE)));
@@ -85,6 +86,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ArticleHolder>
                 Picasso.with(context).load(url).into(image);
             }
         }
+        //get the position/location of items that were click
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
